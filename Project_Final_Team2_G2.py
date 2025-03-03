@@ -16,9 +16,7 @@ def user_login():
     if username in users and users[username] == password:
         print("Login successful")
         return True
-    else:
-        print("Invalid username or password")
-        return False
+ 
 #test 
 
    
