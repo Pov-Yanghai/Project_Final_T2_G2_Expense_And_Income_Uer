@@ -3,12 +3,25 @@ import csv
 import datetime
 import pandas as pd
 
-# Load the real dataset (CSV)
-def load_data(filename='expenses_income.csv'):
-    if not os.path.exists(filename):
-        print(f"File {filename} does not exist.")
-        return None
-    return pd.read_csv(filename)
+   
+def user_login():
+    print("Login")
+    username = input("Enter your username: ")
+    password = input("Enter your password: ")
+    
+    # Mock user data
+    users = {
+        "admin": "password123",
+        "user1": "user1password",
+        "user2": "user2password"
+    }
+    
+    if username in users and users[username] == password:
+        print("Login successful")
+        return True
+ 
+#test 
+
 
 # Add an expense to the CSV file
 def add_expense(date, amount, category, description, filename='expenses_income.csv'):
