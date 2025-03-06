@@ -3,7 +3,6 @@
 
 import csv
 import os
-import random
 from datetime import datetime, timedelta
 
 class Transaction:
@@ -131,6 +130,7 @@ class User:
             # Open the file in write mode
             with open(self.filename, 'w', newline='') as file:
                 # Create a CSV writer
+
                 writer = csv.writer(file)
                 # Write the header row
                 writer.writerow(["Type", "Amount", "Date", "Category", "Description"])
@@ -156,7 +156,7 @@ class User:
         if os.path.exists(self.filename):
             with open(self.filename, 'r') as file:
                 reader = csv.reader(file)
-                next(reader)
+                next(reader) # Read the transaction details from  the CSV file 
                 self.transactions = []
                 for row in reader:
                     transaction_type,amount, date, category, description = row
