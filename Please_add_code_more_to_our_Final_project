@@ -128,14 +128,28 @@ class User:
     ## Save transactions to a CSV file  
     def save_transactions(self):
         try:
+            # Open the file in write mode
             with open(self.filename, 'w', newline='') as file:
+                # Create a CSV writer
                 writer = csv.writer(file)
-                writer.writerow(["Type","Amount", "Date", "Category", "Description"])
+                # Write the header row
+                writer.writerow(["Type", "Amount", "Date", "Category", "Description"])
+
+                # Loop through each transaction
                 for transaction in self.transactions:
-                    transaction_type = "Income" if isinstance(transaction, Income)else "Expense"
-                    writer.writerow([transaction_type,transaction.amount, transaction.date, transaction.category, transaction.description])
-        except Exception as e:
-            print(f"Error saving transactions: {e}")
+                    # Check if the transaction is Income or Expense
+                    if isinstance(transaction, Income):
+                        transaction_type = "Income"
+                    else:
+                        transaction_type = "Expense"
+
+                    # Write the transaction details
+                    writer.writerow([transaction_type, transaction.amount, transaction.date, transaction.category, transaction.description])
+
+        # If an error happens, print a simple message
+        except:
+            print("Error saving transactions")
+
         
     ## load data from CSV file 
     def load_transactions(self):
@@ -155,15 +169,15 @@ class User:
 ## Admin class to  manage transactions  and users information 
 class Admin(User):
     def __init__(self, username, password):
-        super().__init__(username, password)
+        super().__init__(username, password) # super function to initialize the user object 
 ## load users from CSV file 
 def load_users():
     users = []
     if os.path.exists("users.csv"):
-        with open("users.csv", 'r') as file:
+        with open("users.csv", 'r') as file:  # Open the file in read mode
             reader = csv.reader(file)
             next(reader)
-            for row in reader:
+            for row in reader: # Read each row 
                 username, password, is_admin = row
                 if is_admin == "True":
                     users.append(Admin(username, password))
@@ -187,35 +201,12 @@ def add_transaction(user, transaction):
 ## Need change please change to to make syste report monthly for each user. Report the transaction every month 
 ##report check by months
 def view_report(user):
-    user.load_transactions()
-    income = sum(t.amount for t in user.transactions if isinstance(t, Income))
-    expenses = sum(t.amount for t in user.transactions if isinstance(t, Expense))
-    balance = income - expenses
-
-    print(f"\nTotal Income: ${income}")
-    print(f"Total Expenses: ${expenses}")
-    print(f"Balance: ${balance}")
-## check the balance and give some suggestion to user  
-## need more check condition 
-    if balance < 0:
-        print("\nWarning: You are overspending!")
-        print("Here are some suggestions to improve your finances:")
-        if expenses > 1.5 * income:
-            print("- Your expenses are significantly higher than your income. Consider cutting unnecessary expenses.")
-        if any(t.category.lower() == 'entertainment' for t in user.transactions if isinstance(t, Expense)):
-            print("- You are spending a lot on entertainment. Try reducing entertainment expenses.")
-        if any(t.category.lower() == 'food' for t in user.transactions if isinstance(t, Expense)):
-            print("- Food expenses are high. Cooking at home can help reduce costs.")
-        print("- Track your daily expenses and prioritize essential spending only.")
-    elif balance == 0:
-        print("\nWarning: You spent all your income this month. Be careful next month.")
-        print("- Track your daily expenses and prioritize essential spending only.")
+   # add report 
+   pass
 ## view transcription 
 def view_transactions(user):
-    user.load_transactions()
-    print("\nTransaction History:")
-    for transaction in user.transactions:
-        print(transaction)
+    # add view all transactions
+    pass
 ## clear transaction history 
 def clear_transactions(user):
     user.transactions = []
