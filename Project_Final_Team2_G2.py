@@ -11,19 +11,26 @@ class Transaction:
 
     def __str__(self):
         # Return string representation of the transaction (for printing)
-        pass  # To be implemented 
+        return f"{self.date} - {self.category}: ${self.amount}"
 
 # Class to represent an expense, which inherits from Transaction
 class Expense(Transaction):
     def __init__(self, amount, date, category):
         # Initialize expense with the same parameters as Transaction
+        # vornsin complete this place
+
         pass  # To be implemented 
 
 # Class to represent income, which also inherits from Transaction
 class Income(Transaction):
     def __init__(self, amount, date, source):
         # Initialize income with amount, date, and source (category)
-        pass  # To be implemented 
+        self.amount = amount
+        self.date = date
+        self.source = source
+        
+    
+       
 
 # A class to handle the report, which tracks all expenses and income
 class Report:
