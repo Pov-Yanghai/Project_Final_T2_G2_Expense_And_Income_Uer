@@ -11,19 +11,26 @@ class Transaction:
 
     def __str__(self):
         # Return string representation of the transaction (for printing)
-        pass  # To be implemented 
+        return f"{self.date} - {self.category}: ${self.amount}"
 
 # Class to represent an expense, which inherits from Transaction
 class Expense(Transaction):
     def __init__(self, amount, date, category):
         # Initialize expense with the same parameters as Transaction
+        # vornsin complete this place
+
         pass  # To be implemented 
 
 # Class to represent income, which also inherits from Transaction
 class Income(Transaction):
     def __init__(self, amount, date, source):
         # Initialize income with amount, date, and source (category)
-        pass  # To be implemented 
+        self.amount = amount
+        self.date = date
+        self.source = source
+        
+    
+       
 
 # A class to handle the report, which tracks all expenses and income
 class Report:
@@ -58,6 +65,7 @@ class Report:
 
     def save_to_csv(self):
         # Save the transactions (expenses and income) to CSV
+        # Check if the file already exists
         pass  # To be implemented 
 
     def load_from_csv(self):
@@ -67,7 +75,20 @@ class Report:
 # Function to simulate adding transactions (either expense or income)
 def add_transaction(report):
     # Prompt user to enter transaction details (type, amount, date, category)
-    pass  # To be implemented 
+    def __init__(self, type, amount, date, category):
+        self.type = type
+        self.amount = amount
+        self.date = date
+        self.category = category
+        if type == "expense":
+            report.add_expense(Expense(amount, date, category))
+        elif type == "income":
+            report.add_income(Income(amount, date, category))
+        else:
+            print("Invalid transaction type. Use 'expense' or 'income'.")
+            return
+        
+   # To be implemented 
 
 # Main function to drive the process (for Week 3)
 def main():
