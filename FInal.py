@@ -49,7 +49,8 @@ class Report:
         # read transactions from CSV
         if not os.path.exists("transactions.csv"):
             print("No transactions recorded in CSV")
-            return
+            return 
+        # load transaction data from CSV using pandas 
         df = pd.read_csv("transactions.csv")
         print(df.column)
         # convert date to datetime
@@ -59,8 +60,6 @@ class Report:
         sum_expense = df.query("type=='expense'").sum()
         # calculate net income
         net_income = sum_income - sum_expense
-        # calculate average daily expense
-        avg_daily_expense = sum_expense / len(df) if len(df) > 0 else 0
 # User class
 class User:
     pass
