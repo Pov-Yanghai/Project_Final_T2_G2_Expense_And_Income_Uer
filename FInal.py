@@ -33,7 +33,7 @@ class Income(Transaction):
         return "income"
     def __str__(self):
         # return transaction type as string
-        return f"{self.date} - {self.currency}{self.amount} - {self.description}"  
+        return f"Income: {self.date} - {self.currency}{self.amount} - {self.description}"  
 # Expense class
 class Expense(Transaction):
     # inherit from Transaction
@@ -42,10 +42,25 @@ class Expense(Transaction):
         return "expense"
     def __str__(self):
         # return transaction type as string
-        return f"{self.date} - {self.currency}{self.amount} - {self.description}"
+        return f"Expense: {self.date} - {self.currency}{self.amount} - {self.description}"
 # Transaction report class
 class Report:
-    pass
+    def generate(self):
+        # read transactions from CSV
+        if not os.path.exists("transactions.csv"):
+            print("No transactions recorded in CSV")
+            return
+        df = pd.read_csv("transactions.csv")
+        print(df.column)
+        # convert date to datetime
+        df["date"] = pd.to_datetime(df["date"])
+        # calculate total sum income and expenses
+        sum_income = df.query("type=='income'").sum()
+        sum_expense = df.query("type=='expense'").sum()
+        # calculate net income
+        net_income = sum_income - sum_expense
+        # calculate average daily expense
+        avg_daily_expense = sum_expense / len(df) if len(df) > 0 else 0
 # User class
 class User:
     pass
