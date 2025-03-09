@@ -27,10 +27,22 @@ class Transaction(ABC):
         pass
 # Income class
 class Income(Transaction):
-    pass
+    # inherit from Transaction
+    def get_type(self):
+        # return Income type as string
+        return "income"
+    def __str__(self):
+        # return transaction type as string
+        return f"{self.date} - {self.currency}{self.amount} - {self.description}"  
 # Expense class
 class Expense(Transaction):
-    pass
+    # inherit from Transaction
+    def get_type(self):
+        # return Expense type as string
+        return "expense"
+    def __str__(self):
+        # return transaction type as string
+        return f"{self.date} - {self.currency}{self.amount} - {self.description}"
 # Transaction report class
 class Report:
     pass
